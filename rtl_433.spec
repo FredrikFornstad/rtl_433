@@ -1,9 +1,8 @@
 %global gitversion f82c02561dcde055143903d0f65257eb3211d45b
-%global gitshortver f82c025
 
 Name:           rtl_433
-Version:        20.02.%{gitshortver}
-Release:        1%{dist}
+Version:        20.02.61
+Release:        2%{dist}
 Summary:        Turns RTL2832 dongle into a 433.92MHz generic data receiver
 License:        GPL-2.0-only
 Group:          Productivity/Hamradio/Other
@@ -39,6 +38,13 @@ make VERBOSE=1 %{?_smp_mflags}
 install -d %{buildroot}%{_sysconfdir}/rtl_433
 mv %{buildroot}/usr/etc/rtl_433/ %{buildroot}%{_sysconfdir}/
 
+%post
+if [ $1 -gt 1 ] ; then
+systemctl try-restart domoticz &> /dev/null || :
+fi
+
+%postun
+systemctl try-restart domoticz &> /dev/null || :
 
 %files
 %license COPYING
@@ -55,5 +61,9 @@ mv %{buildroot}/usr/etc/rtl_433/ %{buildroot}%{_sysconfdir}/
 
 
 %changelog
+* Thu Jun 4 2020 Fredrik Fornstad <fredrik.fornstad@gmail.com> - 20.02.61-2
+- Corrected build version
+- Restart Domoticz at install and uninstall in case it was running
+
 * Thu Jun 4 2020 Fredrik Fornstad <fredrik.fornstad@gmail.com> - 20.02.f82c025-1
 - First version for ClearOS
