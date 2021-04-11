@@ -1,8 +1,8 @@
-%global gitversion f82c02561dcde055143903d0f65257eb3211d45b
+%global gitversion ee25794795e19e18b03691108cc40ccbe6e971d5
 
 Name:           rtl_433
-Version:        20.02.61
-Release:        3%{dist}
+Version:        20.11.109
+Release:        1%{dist}
 Summary:        Turns RTL2832 dongle into a 433.92MHz generic data receiver
 License:        GPL-2.0-only
 Group:          Productivity/Hamradio/Other
@@ -26,11 +26,11 @@ to make use of rtl_433.
 
 %prep
 %setup -q -n %{name}-%{gitversion}
+sed -i 's/\[Unreleased\]/Release %{version}-%{release} (2021-04-11)/' CHANGELOG.md
 
 %build
 %cmake3 \
     -DBUILD_TESTING=OFF
-sed -i 's/version unknown/%{version}-%{release}/' src/r_api.c
 make VERBOSE=1 %{?_smp_mflags}
 
 
@@ -62,6 +62,9 @@ systemctl try-restart domoticz &> /dev/null || :
 
 
 %changelog
+* Sun Apr 11 2021 Fredrik Fornstad <fredrik.fornstad@gmail.com> - 20.11.109-1
+- Updated to latest upstream build
+
 * Sat Jun 6 2020 Fredrik Fornstad <fredrik.fornstad@gmail.com> - 20.02.61-3
 - Patch so that rtl_433 -V will return build version
 
