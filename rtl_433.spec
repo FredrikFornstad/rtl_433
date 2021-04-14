@@ -1,7 +1,7 @@
-%global gitversion ee25794795e19e18b03691108cc40ccbe6e971d5
+%global gitversion f3f04c07a998a783325ded2cd782aaa2d3721564
 
 Name:           rtl_433
-Version:        20.11.109
+Version:        20.11.113
 Release:        1%{dist}
 Summary:        Turns RTL2832 dongle into a 433.92MHz generic data receiver
 License:        GPL-2.0-only
@@ -26,7 +26,7 @@ to make use of rtl_433.
 
 %prep
 %setup -q -n %{name}-%{gitversion}
-sed -i 's/\[Unreleased\]/Release %{version}-%{release} (2021-04-11)/' CHANGELOG.md
+sed -i 's/\[Unreleased\]/Release %{version}-%{release} (2021-04-14)/' CHANGELOG.md
 
 %build
 %cmake3 \
@@ -62,6 +62,9 @@ systemctl try-restart domoticz &> /dev/null || :
 
 
 %changelog
+* Wed Apr 14 2021 Fredrik Fornstad <fredrik.fornstad@gmail.com> - 20.11.113-1
+- Updated to latest upstream build
+
 * Sun Apr 11 2021 Fredrik Fornstad <fredrik.fornstad@gmail.com> - 20.11.109-1
 - Updated to latest upstream build
 
